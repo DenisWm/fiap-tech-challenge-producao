@@ -1,0 +1,19 @@
+postgres:
+  username: postgres
+  password: postgres
+  schema: producao
+  url: localhost:5432
+
+server:
+  port: 8080
+  undertow:
+    threads:
+      worker: 10
+      io: 2
+amqp:
+  admin:
+    auto-create: true
+  host: localhost
+  port: 5672
+  username: adm_videos
+  password: 123456
