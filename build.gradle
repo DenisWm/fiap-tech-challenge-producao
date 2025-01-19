@@ -1,17 +1,25 @@
 plugins {
     id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group = 'com.fiap.tech.challenge'
+group = 'com.fiap.tech.challenge.production'
 version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(':domain')
+    implementation project(':application')
+    implementation project(':infrastructure')
 }
 
 test {

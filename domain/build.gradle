@@ -1,9 +1,16 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.6.7'
 }
 
 group = 'com.fiap.tech.challenge.domain'
 version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -12,6 +19,10 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+bootJar {
+    mainClass.set('com.fiap.tech.challenge.domain.Main')
 }
 
 test {
