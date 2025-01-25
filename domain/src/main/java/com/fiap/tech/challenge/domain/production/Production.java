@@ -38,10 +38,27 @@ public class Production extends AggregateRoot<ProductionID> {
     }
 
     public static Production createProduction(final String orderId,
-                                  final ProductionStatus status,
                                   final List<Item> items) {
         final var now = Instant.now();
-        return new Production(ProductionID.unique(), orderId, status, now, null, null, items);
+        return new Production(ProductionID.unique(), orderId, ProductionStatus.RECEIVED, now, null, null, items);
+    }
+
+    public static Production with(final ProductionID anId,
+                                  final String orderId,
+                                  final ProductionStatus status,
+                                  final Instant receivedAt,
+                                  final Instant startedAt,
+                                  final Instant finishedAt,
+                                  final List<Item> items) {
+        return new Production(
+                anId,
+                orderId,
+                status,
+                receivedAt,
+                startedAt,
+                finishedAt,
+                items
+        );
     }
 
     public Production updateStatus(final ProductionStatus newStatus) {

@@ -15,7 +15,8 @@ repositories {
 dependencies {
     implementation project(':domain')
     implementation project(':application')
-
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.14')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.14')
 
     implementation ('org.springframework.boot:spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
@@ -37,9 +38,9 @@ dependencies {
 }
 
 flyway {
-    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3306/production'
-    user = System.getenv('FLYWAY_USER') ?: 'root'
-    password = System.getenv('FLYWAY_PASS') ?: '123456'
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:postgresql://localhost:5432/producao'
+    user = System.getenv('FLYWAY_USER') ?: 'postgres'
+    password = System.getenv('FLYWAY_PASS') ?: 'postgres'
 }
 
 test {

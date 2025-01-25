@@ -6,16 +6,22 @@ import java.util.Objects;
 
 public final class Item extends ValueObject {
 
+    private final String productId;
     private final String productName;
     private final int quantity;
 
-    private Item(final String productName, final int quantity) {
+    private Item(final String productId, final String productName, final int quantity) {
+        this.productId = Objects.requireNonNull(productId);
         this.productName = Objects.requireNonNull(productName);
-        this.quantity = Objects.requireNonNull(quantity);
+        this.quantity = quantity;
     }
 
-    public static Item of(final String productName, final int quantity) {
-        return new Item(productName, quantity);
+    public static Item of(final String productId, final String productName, final int quantity) {
+        return new Item(productId, productName, quantity);
+    }
+
+    public String productId() {
+        return productId;
     }
 
     public String productName() {
@@ -30,11 +36,11 @@ public final class Item extends ValueObject {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         final var items = (Item) o;
-        return quantity == items.quantity && Objects.equals(productName, items.productName);
+        return quantity == items.quantity && Objects.equals(productName, items.productName) && Objects.equals(productId, items.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productName, quantity);
+        return Objects.hash(productId, productName, quantity);
     }
 }
