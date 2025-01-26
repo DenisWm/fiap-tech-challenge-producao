@@ -49,6 +49,7 @@ jacoco {
 }
 
 jacocoTestReport {
+    dependsOn test
     reports {
         xml.required.set(true)
         html.required.set(true)
@@ -75,4 +76,5 @@ bootJar {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }

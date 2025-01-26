@@ -70,14 +70,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run Unit Tests
+      - name: Run Unit Tests and Generate JaCoCo Report
         run: ./gradlew test jacocoTestReport
 
       - name: Upload JaCoCo Report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: build/reports/jacoco/test/html/
+          path: infrastructure/build/reports/jacoco/test/html/
 
       - name: Check Quality Gate
         run: ./gradlew check
