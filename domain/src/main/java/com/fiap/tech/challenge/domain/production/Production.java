@@ -63,21 +63,20 @@ public class Production extends AggregateRoot<ProductionID> {
 
     public Production updateStatus(final ProductionStatus newStatus) {
         this.status = newStatus;
-        onStatusUpdate();
+        onStatusUpdate(newStatus);
         return this;
     }
 
-    private void onStatusUpdate() {
+    private void onStatusUpdate(final ProductionStatus status) {
         if(status == null) {
             return;
         }
         if (this.status.equals(ProductionStatus.IN_PREPARATION)) {
             this.startedAt = Instant.now();
-            this.registerEvent(ProductionInPreparation.with(getOrderId(), getStartedAt()));
         } else if (this.status.equals(ProductionStatus.READY)) {
             this.finishedAt = Instant.now();
-            this.registerEvent(ProductionIsReady.with(getOrderId(), getFinishedAt()));
         }
+        this.registerEvent(ProductionStatusChanged.with(getOrderId(), status.name(), getStartedAt(), getFinishedAt()));
     }
 
     @Override

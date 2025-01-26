@@ -8,6 +8,7 @@ import com.fiap.tech.challenge.domain.production.ProductionID;
 import com.fiap.tech.challenge.domain.production.ProductionStatus;
 import com.fiap.tech.challenge.infrastructure.production.persistence.ProductionJpaEntity;
 import com.fiap.tech.challenge.infrastructure.production.persistence.ProductionRepository;
+import com.fiap.tech.challenge.infrastructure.services.EventService;
 import com.fiap.tech.challenge.infrastructure.utils.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,8 +24,14 @@ public class ProductionPostgresGateway implements ProductionGateway {
 
     private final ProductionRepository productionRepository;
 
-    public ProductionPostgresGateway(final ProductionRepository productionRepository) {
+    private final EventService eventService;
+
+    public ProductionPostgresGateway(
+            final ProductionRepository productionRepository,
+            final EventService eventService
+    ) {
         this.productionRepository = Objects.requireNonNull(productionRepository);
+        this.eventService = eventService;
     }
 
     @Override
@@ -35,7 +42,7 @@ public class ProductionPostgresGateway implements ProductionGateway {
 
     private Production save(final Production aProduction) {
         final var result = this.productionRepository.save(ProductionJpaEntity.from(aProduction)).toAggregate();
-        // TODO: PUBLISH EVENTS
+        aProduction.publishDomainEvents(eventService::send);
         return result;
     }
 
