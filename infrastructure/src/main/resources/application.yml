@@ -2,14 +2,10 @@ amqp:
   admin:
     auto-create: false
   queues:
-    video-created:
-      exchange: video.events
-      routing-key: video.created
-      queue: video.created.queue
-    video-encoded:
-      exchange: video.events
-      routing-key: video.encoded
-      queue: video.encoded.queue
+    production-status-changed:
+      exchange: production.events
+      routing-key: production.status-changed
+      queue: production.status-changed.queue
 
 server:
   port: 8080
