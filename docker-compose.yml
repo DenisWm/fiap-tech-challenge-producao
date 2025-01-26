@@ -1,17 +1,6 @@
 version: '3.10'
 services:
 
-  rabbit:
-    container_name: rabbitmq-lanchonete-producao
-    image: rabbitmq:3-management
-    environment:
-      - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG
-      - RABBITMQ_DEFAULT_USER=adm_production
-      - RABBITMQ_DEFAULT_PASS=123456
-      - RABBITMQ_DEFAULT_VHOST=/
-    ports:
-      - 15672:15672
-      - 5672:5672
 
   db:
     container_name: postgresql-lanchonete-producao
@@ -23,3 +12,14 @@ services:
     ports:
       - 5432:5432
 
+  rabbit:
+    container_name: rabbitmq-lanchonete-producao
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG
+      - RABBITMQ_DEFAULT_USER=adm_production
+      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - 15672:15672
+      - 5672:5672

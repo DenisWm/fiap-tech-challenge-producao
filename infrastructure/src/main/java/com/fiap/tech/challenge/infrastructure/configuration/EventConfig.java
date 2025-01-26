@@ -15,18 +15,18 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class EventConfig {
 
-    @Bean
-    @ProductionStatusChangedQueue
-    @Profile({"development"})
-    public EventService localProductionStatusChangedEventService() {
-        return new InMemoryEventService();
-    }
+//    @Bean
+//    @ProductionStatusChangedQueue
+//    @Profile({"development"})
+//    public EventService localProductionStatusChangedEventService() {
+//        return new InMemoryEventService();
+//    }
 
 
     @Bean
     @ProductionStatusChangedQueue
     @ConditionalOnMissingBean
-    public EventService videoProductionStatusChangedService(
+    public EventService productionStatusChangedService(
             @ProductionStatusChangedQueue final QueueProperties props,
             final RabbitOperations ops
     ) {
