@@ -42,7 +42,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ FIAP Tech Challenge: Build concluído com sucesso!🛠️"}' \
+            --data '{"content":"✅ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Build concluído com sucesso!🛠️"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Notification - Build Failure
@@ -50,7 +50,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ FIAP Tech Challenge: Build falhou 🚫! Verifique os logs para mais detalhes."}' \
+            --data '{"content":"⚠️ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Build falhou 🚫! Verifique os logs para mais detalhes."}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   test:
@@ -79,6 +79,12 @@ jobs:
           name: jacoco-report
           path: infrastructure/build/reports/jacoco/test/html/
 
+      - name: Run SonarQube analysis
+        run: ./gradlew sonarqube
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+
       - name: Check Quality Gate
         run: ./gradlew check
         continue-on-error: true
@@ -88,7 +94,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ FIAP Tech Challenge: Testes concluídos com sucesso!📒✏️"}' \
+            --data '{"content":"✅ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Testes concluídos com sucesso!📒✏️"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Notification - Test Failure
@@ -96,7 +102,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ FIAP Tech Challenge: Testes falharam! Verifique os logs para mais detalhes. 🚫"}' \
+            --data '{"content":"⚠️ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Testes falharam! Verifique os logs para mais detalhes. 🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   deploy:
@@ -127,7 +133,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ FIAP Tech Challenge: Deploy concluído com sucesso!🚀"}' \
+            --data '{"content":"✅ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Deploy concluído com sucesso!🚀"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Failure Notification - Deploy
@@ -135,5 +141,5 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ FIAP Tech Challenge: Deploy falhou! Verifique os logs para mais detalhes.🚫"}' \
+            --data '{"content":"⚠️ MICROSSERVIÇO PRODUÇÃO 🍳 👨‍🍳: Deploy falhou! Verifique os logs para mais detalhes.🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}

@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.sonarqube' version '3.3'
 }
 
 group = 'com.fiap.tech.challenge.production'
@@ -20,6 +21,15 @@ dependencies {
     implementation project(':domain')
     implementation project(':application')
     implementation project(':infrastructure')
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "fiap-g30_production"
+        property "sonar.organization", "fiap-g30"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.login", System.getenv("SONAR_LOGIN")
+    }
 }
 
 test {
