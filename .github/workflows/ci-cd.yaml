@@ -89,19 +89,3 @@ jobs:
 
       - name: Push Docker image
         run: docker push gabiponcet/lanchonete-producao:latest
-
-      - name: Send Discord Success Notification - Deploy
-        if: success()
-        run: |
-          curl -X POST \
-            -H 'Content-type: application/json' \
-            --data '{"content":"✅ FIAP Tech Challenge: Deploy concluído com sucesso!🚀"}' \
-            ${{ secrets.DISCORD_WEBHOOK_URL }}
-
-      - name: Send Discord Failure Notification - Deploy
-        if: failure()
-        run: |
-          curl -X POST \
-            -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ FIAP Tech Challenge: Deploy falhou! Verifique os logs para mais detalhes.🚫"}' \
-            ${{ secrets.DISCORD_WEBHOOK_URL }}
