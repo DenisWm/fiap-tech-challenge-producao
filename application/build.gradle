@@ -1,45 +1,11 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.6.7'
-    id 'jacoco'
+    id 'java-conventions'
+    id 'java-library'
 }
 
 group = 'com.fiap.tech.challenge.application'
-version = '1.0-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation project(':domain')
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 }
 
-jacoco {
-    toolVersion = "0.8.7"
-}
-
-jacocoTestReport {
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-    }
-}
-
-bootJar {
-    mainClass.set('com.fiap.tech.challenge.application.Main')
-}
-
-test {
-    useJUnitPlatform()
-}
