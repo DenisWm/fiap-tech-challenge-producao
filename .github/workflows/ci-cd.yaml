@@ -40,6 +40,9 @@ jobs:
       - name: List build/libs contents
         run: ls -la build/libs
 
+      - name: Build Docker image
+        run: docker build -t gabiponcet/lanchonete-producao:latest .
+
       - name: Send Discord Notification - Build Success
         if: success()
         run: |
@@ -115,12 +118,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: docker build -t gabiponcet/lanchonete-producao:latest .
-
-      - name: List build/libs contents
-        run: ls -la build/libs
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
