@@ -80,13 +80,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: infrastructure/build/reports/jacoco/test/html/
+          path: build/reports/jacoco/test/html/
 
-    #  - name: Run SonarQube analysis
-    #    run: ./gradlew sonarqube
-    #    env:
-    #       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    #       SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+      # - name: Run SonarQube analysis
+      #   run: ./gradlew sonarqube
+      #   env:
+      #      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      #      SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
 
       - name: Check Quality Gate
         run: ./gradlew check
@@ -118,6 +118,9 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t gabiponcet/lanchonete-producao:latest .
+
+      - name: List build/libs contents
+        run: ls -la build/libs
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1

@@ -1,6 +1,7 @@
 # Excluir diretórios desnecessários
 node_modules
 build
+!build/libs
 !build/libs/application.jar
 
 # Excluir arquivos de configuração do sistema
