@@ -125,6 +125,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Pull Docker image
+        run: docker pull gabiponcet/lanchonete-producao:latest
+
       - name: Scan Docker image for vulnerabilities
         run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity HIGH,CRITICAL gabiponcet/lanchonete-producao:latest
 
