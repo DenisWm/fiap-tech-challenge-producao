@@ -37,6 +37,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
 
+      - name: List build/libs contents
+        run: ls -la build/libs
+
       - name: Send Discord Notification - Build Success
         if: success()
         run: |

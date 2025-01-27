@@ -9,29 +9,29 @@ plugins {
 
 group = 'com.fiap.tech.challenge.infrastructure'
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 dependencies {
     implementation project(':domain')
     implementation project(':application')
     implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.14')
     implementation('org.springdoc:springdoc-openapi-ui:1.6.14')
-
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
-
     implementation ('org.springframework.boot:spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
     }
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
     implementation 'com.fasterxml.jackson.module:jackson-module-afterburner'
-
     runtimeOnly 'org.postgresql:postgresql'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.flywaydb:flyway-core'
     testImplementation('org.testcontainers:testcontainers:1.17.2')
 }
-
 
 testCodeCoverageReport {
     reports {
@@ -39,7 +39,6 @@ testCodeCoverageReport {
             enabled true
             destination file("$rootDir/build/reports/jacoco/test/jacocoTestReport.xml")
         }
-
         html {
             enabled true
             destination file("$rootDir/build/reports/jacoco/test/")

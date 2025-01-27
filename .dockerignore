@@ -1,0 +1,14 @@
+# Excluir diretórios desnecessários
+node_modules
+build
+!build/libs/application.jar
+
+# Excluir arquivos de configuração do sistema
+.DS_Store
+
+# Excluir arquivos de versão de controle
+.git
+.gitignore
+
+# Excluir arquivos temporários
+*.log
