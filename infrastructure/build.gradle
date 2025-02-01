@@ -9,12 +9,6 @@ plugins {
 
 group = 'com.fiap.tech.challenge.infrastructure'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
 dependencies {
     implementation project(':domain')
     implementation project(':application')
