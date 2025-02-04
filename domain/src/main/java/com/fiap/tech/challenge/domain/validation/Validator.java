@@ -13,4 +13,5 @@ public abstract class Validator {
     public ValidationHandler getHandler() {
         return handler;
     }
+
 }

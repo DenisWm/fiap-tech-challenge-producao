@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.sonarqube" version "6.0.1.5171"
 }
 
-group = 'com.fiap.tech.challenge'
+group = 'com.fiap.tech.challenge.production'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,8 +12,18 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(':domain')
+    implementation project(':application')
+    implementation project(':infrastructure')
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "fiap-g30_production"
+        property "sonar.organization", "fiap-g30"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.token", System.getenv("SONAR_TOKEN")
+    }
 }
 
 test {

@@ -1,14 +1,7 @@
 version: '3.10'
 services:
-#  app:
-#    container_name: lanchonete-app
-#    image: lanchonete-app:latest
-#    build: .
-#    ports:
-#      - 8080:8080
-#    depends_on:
-#      db:
-#        condition: service_healthy
+
+
   db:
     container_name: postgresql-lanchonete-producao
     image: postgres:12.6
@@ -18,14 +11,15 @@ services:
       POSTGRES_DB: producao
     ports:
       - 5432:5432
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U postgres"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
-#    environment:
-#      - discovery.type=single-node
-#    ports:
-#      - "9200:9200"
+
+  rabbit:
+    container_name: rabbitmq-lanchonete-producao
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG
+      - RABBITMQ_DEFAULT_USER=adm_production
+      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - 15672:15672
+      - 5672:5672

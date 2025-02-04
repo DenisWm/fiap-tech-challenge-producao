@@ -1,21 +1,11 @@
 plugins {
-    id 'java'
+    id 'java-conventions'
+    id 'java-library'
 }
 
 group = 'com.fiap.tech.challenge.application'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation project(':domain')
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 }
 
-test {
-    useJUnitPlatform()
-}
