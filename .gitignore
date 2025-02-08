@@ -41,3 +41,19 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Diretórios de Build ###
+target/
+
+### Arquivos Temporários ###
+*.log
+*.tmp
+
+### Configurações do Terraform ###
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+### Arquivos executáveis ###
+*.exe
