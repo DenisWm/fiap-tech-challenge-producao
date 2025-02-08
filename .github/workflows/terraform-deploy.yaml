@@ -11,6 +11,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - name: Check out code
@@ -67,6 +68,20 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./terraform
 
+      - name: Manual Approval
+        uses: actions/github-script@v3
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          script: |
+            const { GITHUB_TOKEN } = process.env;
+            const octokit = require('@octokit/rest')({ auth: GITHUB_TOKEN });
+            const { data: pull } = await octokit.pulls.createReviewRequest({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers: ['reviewer-username'],
+            })
+
       - name: Apply Terraform Plan
         if: success()
         run: terraform apply -auto-approve tfplan
@@ -86,7 +101,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ O pipeline Terraform falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes."}' \
+            --data '{"content":"⚠️ O pipeline Terraform falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Success Notification
@@ -94,7 +109,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ O pipeline Terraform foi concluído com sucesso!"}' \
+            --data '{"content":"✅ O pipeline Terraform foi concluído com sucesso!🌍⛏️🛠️"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   security:
@@ -122,7 +137,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ O pipeline de segurança falhou! Por favor, verifique os logs para mais detalhes."}' \
+            --data '{"content":"⚠️ O pipeline de SEGURANÇA falhou! Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Success Notification
@@ -130,7 +145,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ O pipeline de segurança foi concluído com sucesso!"}' \
+            --data '{"content":"✅ O pipeline de SEGURANÇA foi concluído com sucesso!" 🔒🛡️🔍}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   deploy-staging:
@@ -172,7 +187,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ O pipeline de staging falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes."}' \
+            --data '{"content":"⚠️ O pipeline de staging falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Success Notification
@@ -180,7 +195,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ O pipeline de staging foi concluído com sucesso!"}' \
+            --data '{"content":"✅ O deploy STAGING foi concluído com sucesso!🚀🔧"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   deploy-production:
@@ -222,7 +237,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ O pipeline de produção falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes."}' \
+            --data '{"content":"⚠️ O pipeline de produção falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Success Notification
@@ -230,5 +245,5 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ O pipeline de produção foi concluído com sucesso!"}' \
+            --data '{"content":"✅ O deploy de PRODUÇÃO foi concluído com sucesso!🚀🔧"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
