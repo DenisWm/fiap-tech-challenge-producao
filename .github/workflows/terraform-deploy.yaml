@@ -1,12 +1,10 @@
 name: Provision Infrastructure
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["CI/CD Pipeline - Production Application"]
+    types:
+      - completed
 
 jobs:
   terraform:
@@ -101,7 +99,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"⚠️ O pipeline Terraform falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
+            --data '{"content":"⚠️ Infra TERRAFORM falhou! A infraestrutura foi destruída. Por favor, verifique os logs para mais detalhes.🚫🚫"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Send Discord Success Notification
@@ -109,7 +107,7 @@ jobs:
         run: |
           curl -X POST \
             -H 'Content-type: application/json' \
-            --data '{"content":"✅ O pipeline Terraform foi concluído com sucesso!🌍⛏️🛠️"}' \
+            --data '{"content":"✅ Infra TERRAFORM foi concluída com sucesso!🌍⛏️🛠️"}' \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   security:
