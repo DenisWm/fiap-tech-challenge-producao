@@ -1,12 +1,6 @@
 name: Provision Infrastructure
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
   workflow_run:
     workflows: ["CI/CD Pipeline - Production Application"]
     types:
