@@ -8,6 +8,7 @@ import java.util.List;
 
 public record ProductionOutput(
         String id,
+        String orderId,
         ProductionStatus status,
         Instant receivedAt,
         Instant startedAt,
@@ -18,6 +19,7 @@ public record ProductionOutput(
     public static ProductionOutput from(final Production aProduction) {
         return new ProductionOutput(
                 aProduction.getId().getValue(),
+                aProduction.getOrderId(),
                 aProduction.getStatus(),
                 aProduction.getReceivedAt(),
                 aProduction.getStartedAt(),

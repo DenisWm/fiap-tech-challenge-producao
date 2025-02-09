@@ -6,6 +6,4 @@ plugins {
 group = 'com.fiap.tech.challenge.domain'
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
 }

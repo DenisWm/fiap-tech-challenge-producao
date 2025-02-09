@@ -9,6 +9,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ProductionResponse(
         @JsonProperty("id") String id,
+        @JsonProperty("order_id") String orderId,
         @JsonProperty("status") String status,
         @JsonProperty("received_at") String receivedAt,
         @JsonProperty("started_at") String startedAt,
@@ -19,6 +20,7 @@ public record ProductionResponse(
     public static ProductionResponse from(final ProductionOutput output) {
         return new ProductionResponse(
                 output.id(),
+                output.orderId(),
                 output.status().name(),
                 output.receivedAt() != null ? output.receivedAt().toString() : null,
                 output.startedAt() != null ? output.startedAt().toString() : null,
