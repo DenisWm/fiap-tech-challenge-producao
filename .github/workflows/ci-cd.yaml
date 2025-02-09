@@ -86,14 +86,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: build/reports/jacoco/test/html/
+          path: build/reports/jacoco/test/index.html
 
       - name: Check Quality Gate
         run: ./gradlew check
         continue-on-error: true
 
       - name: Run SonarQube Analysis
-        run: ./gradlew sonarqube
+        run: ./gradlew sonarqube -Dsonar.projectKey=fiap-g30_production -Dsonar.organization=fiap-g30 -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
