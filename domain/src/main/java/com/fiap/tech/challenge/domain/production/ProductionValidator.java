@@ -9,7 +9,6 @@ public class ProductionValidator extends Validator {
     private static final String ORDER_ID_SHOULD_NOT_BE_NULL = "'orderId' should not be null";
     private static final String ORDER_ID_SHOULD_NOT_BE_EMPTY = "'orderId' should not be empty";
     private static final String ITEMS_SHOULD_NOT_BE_EMPTY = "'items' should not be empty";
-    private static final String STATUS_SHOULD_NOT_BE_NULL = "'status' should not be null";
 
     private final Production production;
 
@@ -32,7 +31,6 @@ public class ProductionValidator extends Validator {
         }
         if (orderId.isEmpty()) {
             getHandler().append(new Error(ORDER_ID_SHOULD_NOT_BE_EMPTY));
-            return;
         }
     }
 
@@ -43,10 +41,4 @@ public class ProductionValidator extends Validator {
         }
     }
 
-    private void validateStatus() {
-        final var status = production.getStatus();
-        if (status == null) {
-            getHandler().append(new Error(STATUS_SHOULD_NOT_BE_NULL));
-        }
-    }
 }

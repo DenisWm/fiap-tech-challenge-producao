@@ -7,6 +7,7 @@ import java.time.Instant;
 
 public record ProductionListOutput(
         String id,
+        String orderId,
         ProductionStatus status,
         Instant receivedAt,
         Instant startedAt
@@ -15,6 +16,7 @@ public record ProductionListOutput(
     public static ProductionListOutput from(final Production aProduction) {
         return new ProductionListOutput(
                 aProduction.getId().getValue(),
+                aProduction.getOrderId(),
                 aProduction.getStatus(),
                 aProduction.getReceivedAt(),
                 aProduction.getStartedAt()

@@ -7,6 +7,7 @@ import com.fiap.tech.challenge.application.production.retrieve.list.ProductionLi
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ProductionListResponse(
         @JsonProperty("id") String id,
+        @JsonProperty("order_id") String orderId,
         @JsonProperty("status") String status,
         @JsonProperty("received_at") String receivedAt,
         @JsonProperty("started_at") String startedAt
@@ -15,6 +16,7 @@ public record ProductionListResponse(
     public static ProductionListResponse from(final ProductionListOutput output) {
         return new ProductionListResponse(
                 output.id(),
+                output.orderId(),
                 output.status().name(),
                 output.receivedAt() != null ? output.receivedAt().toString() : null,
                 output.startedAt() != null ? output.startedAt().toString() : null

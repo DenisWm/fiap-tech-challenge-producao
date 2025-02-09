@@ -61,6 +61,18 @@ public class Production extends AggregateRoot<ProductionID> {
         );
     }
 
+    public static Production with(final Production aProduction) {
+        return new Production(
+                aProduction.getId(),
+                aProduction.getOrderId(),
+                aProduction.getStatus(),
+                aProduction.getReceivedAt(),
+                aProduction.getStartedAt(),
+                aProduction.getFinishedAt(),
+                aProduction.getItems()
+        );
+    }
+
     public Production updateStatus(final ProductionStatus newStatus) {
         this.status = newStatus;
         onStatusUpdate(newStatus);
