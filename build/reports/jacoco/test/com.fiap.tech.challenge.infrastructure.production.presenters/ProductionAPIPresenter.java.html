@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductionAPIPresenter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.presenters</a> &gt; <span class="el_source">ProductionAPIPresenter.java</span></div><h1>ProductionAPIPresenter.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.presenters;
+
+import com.fiap.tech.challenge.application.production.retrieve.get.ProductionOutput;
+import com.fiap.tech.challenge.application.production.retrieve.list.ProductionListOutput;
+import com.fiap.tech.challenge.infrastructure.production.models.ProductionListResponse;
+import com.fiap.tech.challenge.infrastructure.production.models.ProductionResponse;
+
+public interface ProductionAPIPresenter {
+
+    static ProductionResponse present(final ProductionOutput output) {
+<span class="nc" id="L11">        return ProductionResponse.from(output);</span>
+    }
+
+    static ProductionListResponse present(final ProductionListOutput output) {
+<span class="nc" id="L15">        return ProductionListResponse.from(output);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

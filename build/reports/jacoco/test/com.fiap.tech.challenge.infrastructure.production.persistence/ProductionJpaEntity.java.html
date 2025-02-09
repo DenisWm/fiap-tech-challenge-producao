@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductionJpaEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.persistence</a> &gt; <span class="el_source">ProductionJpaEntity.java</span></div><h1>ProductionJpaEntity.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.persistence;
+
+import com.fiap.tech.challenge.domain.production.Item;
+import com.fiap.tech.challenge.domain.production.Production;
+import com.fiap.tech.challenge.domain.production.ProductionID;
+import com.fiap.tech.challenge.domain.production.ProductionStatus;
+
+import javax.persistence.*;
+import java.time.Instant;
+import java.util.List;
+
+@Table(name = &quot;productions&quot;)
+@Entity(name = &quot;Production&quot;)
+public class ProductionJpaEntity {
+
+    @Id
+    private String id;
+
+    @Column(name = &quot;order_id&quot;, nullable = false)
+    private String orderId;
+
+    @Column(name = &quot;status&quot;, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductionStatus status;
+
+    @Column(name = &quot;received_at&quot;, columnDefinition = &quot;TIMESTAMP&quot;)
+    private Instant receivedAt;
+
+    @Column(name = &quot;started_at&quot;, columnDefinition = &quot;TIMESTAMP&quot;)
+    private Instant startedAt;
+
+    @Column(name = &quot;finished_at&quot;, columnDefinition = &quot;TIMESTAMP&quot;)
+    private Instant finishedAt;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = &quot;productions_items&quot;, joinColumns = @JoinColumn(name = &quot;production_id&quot;))
+    @Column(name = &quot;item&quot;)
+    private List&lt;ItemJpaObject&gt; items;
+
+<span class="nc" id="L40">    public ProductionJpaEntity() {</span>
+<span class="nc" id="L41">    }</span>
+
+    private ProductionJpaEntity(
+            final String id,
+            final String orderId,
+            final ProductionStatus status,
+            final Instant receivedAt,
+            final Instant startedAt,
+            final Instant finishedAt,
+            final List&lt;ItemJpaObject&gt; items
+<span class="nc" id="L51">    ) {</span>
+<span class="nc" id="L52">        this.id = id;</span>
+<span class="nc" id="L53">        this.orderId = orderId;</span>
+<span class="nc" id="L54">        this.status = status;</span>
+<span class="nc" id="L55">        this.receivedAt = receivedAt;</span>
+<span class="nc" id="L56">        this.startedAt = startedAt;</span>
+<span class="nc" id="L57">        this.finishedAt = finishedAt;</span>
+<span class="nc" id="L58">        this.items = items;</span>
+<span class="nc" id="L59">    }</span>
+
+    public static ProductionJpaEntity from(final Production aProduction) {
+<span class="nc" id="L62">        return new ProductionJpaEntity(</span>
+<span class="nc" id="L63">                aProduction.getId().getValue(),</span>
+<span class="nc" id="L64">                aProduction.getOrderId(),</span>
+<span class="nc" id="L65">                aProduction.getStatus(),</span>
+<span class="nc" id="L66">                aProduction.getReceivedAt(),</span>
+<span class="nc" id="L67">                aProduction.getStartedAt(),</span>
+<span class="nc" id="L68">                aProduction.getFinishedAt(),</span>
+<span class="nc" id="L69">                extractItemsJpaObject(aProduction)</span>
+        );
+    }
+
+    public Production toAggregate() {
+<span class="nc" id="L74">        return Production.with(</span>
+<span class="nc" id="L75">                ProductionID.from(this.id),</span>
+                this.orderId,
+                this.status,
+                this.receivedAt,
+                this.startedAt,
+                this.finishedAt,
+<span class="nc" id="L81">                extractItemsValueObject()</span>
+        );
+    }
+
+    private List&lt;Item&gt; extractItemsValueObject() {
+<span class="nc" id="L86">        return items.stream().map(ItemJpaObject::toValueObject).toList();</span>
+    }
+
+    private static List&lt;ItemJpaObject&gt; extractItemsJpaObject(Production aProduction) {
+<span class="nc" id="L90">        return aProduction.getItems().stream().map(ItemJpaObject::fromValueObject).toList();</span>
+    }
+
+
+    public void setId(String id) {
+<span class="nc" id="L95">        this.id = id;</span>
+<span class="nc" id="L96">    }</span>
+
+    public String getId() {
+<span class="nc" id="L99">        return id;</span>
+    }
+
+    public String getOrderId() {
+<span class="nc" id="L103">        return orderId;</span>
+    }
+
+    public ProductionJpaEntity setOrderId(String orderId) {
+<span class="nc" id="L107">        this.orderId = orderId;</span>
+<span class="nc" id="L108">        return this;</span>
+    }
+
+    public ProductionStatus getStatus() {
+<span class="nc" id="L112">        return status;</span>
+    }
+
+    public ProductionJpaEntity setStatus(ProductionStatus status) {
+<span class="nc" id="L116">        this.status = status;</span>
+<span class="nc" id="L117">        return this;</span>
+    }
+
+    public Instant getReceivedAt() {
+<span class="nc" id="L121">        return receivedAt;</span>
+    }
+
+    public ProductionJpaEntity setReceivedAt(Instant receivedAt) {
+<span class="nc" id="L125">        this.receivedAt = receivedAt;</span>
+<span class="nc" id="L126">        return this;</span>
+    }
+
+    public Instant getStartedAt() {
+<span class="nc" id="L130">        return startedAt;</span>
+    }
+
+    public ProductionJpaEntity setStartedAt(Instant startedAt) {
+<span class="nc" id="L134">        this.startedAt = startedAt;</span>
+<span class="nc" id="L135">        return this;</span>
+    }
+
+    public Instant getFinishedAt() {
+<span class="nc" id="L139">        return finishedAt;</span>
+    }
+
+    public ProductionJpaEntity setFinishedAt(Instant finishedAt) {
+<span class="nc" id="L143">        this.finishedAt = finishedAt;</span>
+<span class="nc" id="L144">        return this;</span>
+    }
+
+    public List&lt;ItemJpaObject&gt; getItems() {
+<span class="nc" id="L148">        return items;</span>
+    }
+
+    public ProductionJpaEntity setItems(List&lt;ItemJpaObject&gt; items) {
+<span class="nc" id="L152">        this.items = items;</span>
+<span class="nc" id="L153">        return this;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

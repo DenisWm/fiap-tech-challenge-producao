@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AmqpConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.configuration</a> &gt; <span class="el_source">AmqpConfig.java</span></div><h1>AmqpConfig.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.configuration;
+
+import com.fiap.tech.challenge.infrastructure.configuration.annotations.ProductionEvents;
+import com.fiap.tech.challenge.infrastructure.configuration.annotations.ProductionStatusChangedQueue;
+import com.fiap.tech.challenge.infrastructure.configuration.properties.amqp.QueueProperties;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+<span class="nc" id="L15">public class AmqpConfig {</span>
+
+    @Bean
+    @ConfigurationProperties(&quot;amqp.queues.production-status-changed&quot;)
+    @ProductionStatusChangedQueue
+    public QueueProperties productionInPreparationQueueProperties() {
+<span class="nc" id="L21">        return new QueueProperties();</span>
+    }
+
+
+    @Configuration
+<span class="nc" id="L26">    static class Admin {</span>
+
+        @Bean
+        @ProductionEvents
+        public DirectExchange productionEventsExchange(@ProductionStatusChangedQueue QueueProperties props) {
+<span class="nc" id="L31">            return new DirectExchange(props.getExchange());</span>
+        }
+
+        @Bean
+        @ProductionStatusChangedQueue
+        public Queue productionStatusChangedQueue(@ProductionStatusChangedQueue QueueProperties props) {
+<span class="nc" id="L37">            return new Queue(props.getQueue());</span>
+        }
+
+        @Bean
+        @ProductionStatusChangedQueue
+        public Binding productionStatusChangedBinding(
+                @ProductionEvents DirectExchange exchange,
+                @ProductionStatusChangedQueue Queue queue,
+                @ProductionStatusChangedQueue QueueProperties props
+        ) {
+<span class="nc" id="L47">            return BindingBuilder.bind(queue).to(exchange).with(props.getRoutingKey());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
