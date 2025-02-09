@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: build/reports/jacoco/test/index.html
+          path: build\reports\jacoco\test\index.html
 
       - name: Check Quality Gate
         run: ./gradlew check
