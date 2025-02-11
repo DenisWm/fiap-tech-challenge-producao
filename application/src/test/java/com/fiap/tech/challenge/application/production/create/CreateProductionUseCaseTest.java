@@ -39,7 +39,7 @@ class CreateProductionUseCaseTest extends UseCaseTest {
         final var expectedItem = Item.of(UUID.randomUUID().toString(), "productName", 2);
         final var expectedItems = List.of(expectedItem);
 
-        final var aCmd = CreateProductionCommand.from(expectedOrderId, expectedItems);
+        final var aCmd = CreateProductionCommand.with(expectedOrderId, expectedItems);
 
         when(productionGateway.create(any())).thenAnswer(returnsFirstArg());
 
@@ -71,7 +71,7 @@ class CreateProductionUseCaseTest extends UseCaseTest {
         final var expectedErrorMessage = "'orderId' should not be null";
         final var expectedExceptionMessage = "Could not create Aggregate Production";
 
-        final var aCmd = CreateProductionCommand.from(expectedOrderId, expectedItems);
+        final var aCmd = CreateProductionCommand.with(expectedOrderId, expectedItems);
 
         final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
 
@@ -90,7 +90,7 @@ class CreateProductionUseCaseTest extends UseCaseTest {
         final var expectedErrorMessage = "'orderId' should not be empty";
         final var expectedExceptionMessage = "Could not create Aggregate Production";
 
-        final var aCmd = CreateProductionCommand.from(expectedOrderId, expectedItems);
+        final var aCmd = CreateProductionCommand.with(expectedOrderId, expectedItems);
 
         final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
 
@@ -108,7 +108,7 @@ class CreateProductionUseCaseTest extends UseCaseTest {
         final var expectedErrorMessage = "'items' should not be empty";
         final var expectedExceptionMessage = "Could not create Aggregate Production";
 
-        final var aCmd = CreateProductionCommand.from(expectedOrderId, expectedItems);
+        final var aCmd = CreateProductionCommand.with(expectedOrderId, expectedItems);
 
         final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
 

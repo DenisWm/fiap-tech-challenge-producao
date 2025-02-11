@@ -13,14 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EventConfig {
 
-//    @Bean
-//    @ProductionStatusChangedQueue
-//    @Profile({"development"})
-//    public EventService localProductionStatusChangedEventService() {
-//        return new InMemoryEventService();
-//    }
-
-
     @Bean
     @ProductionStatusChangedQueue
     @ConditionalOnMissingBean
