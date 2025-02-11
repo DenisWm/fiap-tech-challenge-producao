@@ -43,7 +43,7 @@ public class ProductionController implements ProductionAPI {
 
     @Override
     public ResponseEntity<?> create(final CreateProductionRequest aRequest) {
-        final var aCmd = CreateProductionCommand.from(
+        final var aCmd = CreateProductionCommand.with(
                 aRequest.orderId(),
                 aRequest.items().stream().map(itemRequest -> Item.of(
                         itemRequest.productId(),
