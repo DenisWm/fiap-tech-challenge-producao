@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Production.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.domain.production</a> &gt; <span class="el_source">Production.java</span></div><h1>Production.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.domain.production;
+
+import com.fiap.tech.challenge.domain.AggregateRoot;
+import com.fiap.tech.challenge.domain.validation.ValidationHandler;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Production extends AggregateRoot&lt;ProductionID&gt; {
+
+    private String orderId;
+    private ProductionStatus status;
+    private Instant receivedAt;
+    private Instant startedAt;
+    private Instant finishedAt;
+    private List&lt;Item&gt; items;
+
+
+    protected Production(
+            final ProductionID anId,
+            final String orderId,
+            final ProductionStatus status,
+            final Instant receivedAt,
+            final Instant startedAt,
+            final Instant finishedAt,
+            final List&lt;Item&gt; items
+    ) {
+<span class="fc" id="L30">        super(anId);</span>
+<span class="fc" id="L31">        this.orderId = orderId;</span>
+<span class="fc" id="L32">        this.status = status;</span>
+<span class="fc" id="L33">        this.receivedAt = receivedAt;</span>
+<span class="fc" id="L34">        this.startedAt = startedAt;</span>
+<span class="fc" id="L35">        this.finishedAt = finishedAt;</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        this.items = new ArrayList&lt;&gt;(items == null ? Collections.emptyList() : items);</span>
+
+<span class="fc" id="L38">    }</span>
+
+    public static Production createProduction(final String orderId,
+                                  final List&lt;Item&gt; items) {
+<span class="fc" id="L42">        final var now = Instant.now();</span>
+<span class="fc" id="L43">        return new Production(ProductionID.unique(), orderId, ProductionStatus.RECEIVED, now, null, null, items);</span>
+    }
+
+    public static Production with(final ProductionID anId,
+                                  final String orderId,
+                                  final ProductionStatus status,
+                                  final Instant receivedAt,
+                                  final Instant startedAt,
+                                  final Instant finishedAt,
+                                  final List&lt;Item&gt; items) {
+<span class="nc" id="L53">        return new Production(</span>
+                anId,
+                orderId,
+                status,
+                receivedAt,
+                startedAt,
+                finishedAt,
+                items
+        );
+    }
+
+    public static Production with(final Production aProduction) {
+<span class="fc" id="L65">        return new Production(</span>
+<span class="fc" id="L66">                aProduction.getId(),</span>
+<span class="fc" id="L67">                aProduction.getOrderId(),</span>
+<span class="fc" id="L68">                aProduction.getStatus(),</span>
+<span class="fc" id="L69">                aProduction.getReceivedAt(),</span>
+<span class="fc" id="L70">                aProduction.getStartedAt(),</span>
+<span class="fc" id="L71">                aProduction.getFinishedAt(),</span>
+<span class="fc" id="L72">                aProduction.getItems()</span>
+        );
+    }
+
+    public Production updateStatus(final ProductionStatus newStatus) {
+<span class="fc" id="L77">        this.status = newStatus;</span>
+<span class="fc" id="L78">        onStatusUpdate(newStatus);</span>
+<span class="fc" id="L79">        return this;</span>
+    }
+
+    private void onStatusUpdate(final ProductionStatus status) {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if(status == null) {</span>
+<span class="nc" id="L84">            return;</span>
+        }
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (this.status.equals(ProductionStatus.IN_PREPARATION)) {</span>
+<span class="fc" id="L87">            this.startedAt = Instant.now();</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        } else if (this.status.equals(ProductionStatus.READY)) {</span>
+<span class="fc" id="L89">            this.finishedAt = Instant.now();</span>
+        }
+<span class="fc" id="L91">        this.registerEvent(ProductionStatusChanged.with(getOrderId(), status.name(), getStartedAt(), getFinishedAt()));</span>
+<span class="fc" id="L92">    }</span>
+
+    @Override
+    public void validate(final ValidationHandler handler) {
+<span class="fc" id="L96">        new ProductionValidator(this, handler).validate();</span>
+<span class="fc" id="L97">    }</span>
+
+    public String getOrderId() {
+<span class="fc" id="L100">        return orderId;</span>
+    }
+
+    public ProductionStatus getStatus() {
+<span class="fc" id="L104">        return status;</span>
+    }
+
+    public Instant getStartedAt() {
+<span class="fc" id="L108">        return startedAt;</span>
+    }
+
+    public Instant getFinishedAt() {
+<span class="fc" id="L112">        return finishedAt;</span>
+    }
+
+    public Instant getReceivedAt() {
+<span class="fc" id="L116">        return receivedAt;</span>
+    }
+
+    public List&lt;Item&gt; getItems() {
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        return items != null ? Collections.unmodifiableList(items) : Collections.emptyList();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

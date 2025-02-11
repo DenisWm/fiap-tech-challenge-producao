@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductionResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.models</a> &gt; <span class="el_source">ProductionResponse.java</span></div><h1>ProductionResponse.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.models;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fiap.tech.challenge.application.production.retrieve.get.ProductionOutput;
+
+import java.util.List;
+
+<span class="nc" id="L9">@JsonInclude(JsonInclude.Include.NON_NULL)</span>
+<span class="nc" id="L10">public record ProductionResponse(</span>
+        @JsonProperty(&quot;id&quot;) String id,
+        @JsonProperty(&quot;order_id&quot;) String orderId,
+        @JsonProperty(&quot;status&quot;) String status,
+        @JsonProperty(&quot;received_at&quot;) String receivedAt,
+        @JsonProperty(&quot;started_at&quot;) String startedAt,
+        @JsonProperty(&quot;finished_at&quot;) String finishedAt,
+        @JsonProperty(&quot;items&quot;) List&lt;ItemResponse&gt; items
+) {
+
+    public static ProductionResponse from(final ProductionOutput output) {
+<span class="nc" id="L21">        return new ProductionResponse(</span>
+<span class="nc" id="L22">                output.id(),</span>
+<span class="nc" id="L23">                output.orderId(),</span>
+<span class="nc" id="L24">                output.status().name(),</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">                output.receivedAt() != null ? output.receivedAt().toString() : null,</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">                output.startedAt() != null ? output.startedAt().toString() : null,</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">                output.finishedAt() != null ? output.finishedAt().toString() : null,</span>
+<span class="nc" id="L28">                extractItems(output)</span>
+        );
+    }
+
+    private static List&lt;ItemResponse&gt; extractItems(final ProductionOutput output) {
+<span class="nc" id="L33">        return output.items().stream().map(ItemResponse::from).toList();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

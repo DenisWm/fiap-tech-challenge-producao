@@ -19,6 +19,9 @@ jobs:
       - name: Set permissions for Gradle Wrapper
         run: chmod +x ./gradlew
 
+      - name: Verify Gradle Wrapper Version
+        run: ./gradlew wrapper --version
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -83,11 +86,17 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: build/reports/jacoco/test/html/
+          path: build/reports/jacoco/test/
 
       - name: Check Quality Gate
         run: ./gradlew check
         continue-on-error: true
+
+      - name: Run SonarQube Analysis
+        run: ./gradlew sonarqube -Dsonar.projectKey=fiap-g30_production -Dsonar.organization=fiap-g30 -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Send Discord Notification - Test Success
         if: success()
