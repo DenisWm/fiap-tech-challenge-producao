@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Production.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.domain.production</a> &gt; <span class="el_source">Production.java</span></div><h1>Production.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.domain.production;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Production.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.domain.production</a> &gt; <span class="el_source">Production.java</span></div><h1>Production.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.domain.production;
 
 import com.fiap.tech.challenge.domain.AggregateRoot;
 import com.fiap.tech.challenge.domain.validation.ValidationHandler;
@@ -50,7 +50,7 @@ public class Production extends AggregateRoot&lt;ProductionID&gt; {
                                   final Instant startedAt,
                                   final Instant finishedAt,
                                   final List&lt;Item&gt; items) {
-<span class="nc" id="L53">        return new Production(</span>
+<span class="fc" id="L53">        return new Production(</span>
                 anId,
                 orderId,
                 status,
@@ -80,12 +80,12 @@ public class Production extends AggregateRoot&lt;ProductionID&gt; {
     }
 
     private void onStatusUpdate(final ProductionStatus status) {
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if(status == null) {</span>
-<span class="nc" id="L84">            return;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if(status == null) {</span>
+<span class="fc" id="L84">            return;</span>
         }
 <span class="fc bfc" id="L86" title="All 2 branches covered.">        if (this.status.equals(ProductionStatus.IN_PREPARATION)) {</span>
 <span class="fc" id="L87">            this.startedAt = Instant.now();</span>
-<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        } else if (this.status.equals(ProductionStatus.READY)) {</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        } else if (this.status.equals(ProductionStatus.READY)) {</span>
 <span class="fc" id="L89">            this.finishedAt = Instant.now();</span>
         }
 <span class="fc" id="L91">        this.registerEvent(ProductionStatusChanged.with(getOrderId(), status.name(), getStartedAt(), getFinishedAt()));</span>

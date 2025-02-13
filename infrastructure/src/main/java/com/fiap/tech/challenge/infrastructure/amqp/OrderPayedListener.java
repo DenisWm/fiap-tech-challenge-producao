@@ -27,7 +27,7 @@ public class OrderPayedListener {
         this.createProductionUseCase = Objects.requireNonNull(createProductionUseCase);
     }
 
-    @RabbitListener(id = LISTENER_ID, queues = "order.payed.queue")
+    @RabbitListener(id = LISTENER_ID, queues = "${amqp.queues.order-payed.queue}")
     public void onProductionStatusChangedMessage(@Payload final String message) {
         try {
             final var aResult = Json.readValue(message, OrderPayedResult.class);

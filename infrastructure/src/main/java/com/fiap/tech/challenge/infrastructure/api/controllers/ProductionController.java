@@ -26,35 +26,16 @@ public class ProductionController implements ProductionAPI {
 
     private final GetProductionByIdUseCase getProductionByIdUseCase;
     private final UpdateProductionStatusUseCase updateProductionStatusUseCase;
-    private final CreateProductionUseCase createProductionUseCase;
     private final ListProductionUseCase listProductionUseCase;
 
     public ProductionController(
             final GetProductionByIdUseCase getProductionByIdUseCase,
             final UpdateProductionStatusUseCase updateProductionStatusUseCase,
-            final CreateProductionUseCase createProductionUseCase,
             final ListProductionUseCase listProductionUseCase
     ) {
         this.getProductionByIdUseCase = Objects.requireNonNull(getProductionByIdUseCase);
         this.updateProductionStatusUseCase = Objects.requireNonNull(updateProductionStatusUseCase);
-        this.createProductionUseCase = Objects.requireNonNull(createProductionUseCase);
         this.listProductionUseCase = Objects.requireNonNull(listProductionUseCase);
-    }
-
-    @Override
-    public ResponseEntity<?> create(final CreateProductionRequest aRequest) {
-        final var aCmd = CreateProductionCommand.with(
-                aRequest.orderId(),
-                aRequest.items().stream().map(itemRequest -> Item.of(
-                        itemRequest.productId(),
-                        itemRequest.productName(),
-                        itemRequest.quantity()
-                )).toList()
-
-        );
-
-        final var output = this.createProductionUseCase.execute(aCmd);
-        return ResponseEntity.created(URI.create("/production/%s".formatted(output.id()))).body(output);
     }
 
     @Override

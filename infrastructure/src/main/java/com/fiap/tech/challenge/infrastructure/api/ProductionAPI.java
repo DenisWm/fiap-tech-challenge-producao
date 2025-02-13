@@ -21,18 +21,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Tag(name = "Production")
 public interface ProductionAPI {
 
-    @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    @Operation(summary = "Create a new production")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Created successfully"),
-            @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
-            @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
-    })
-    ResponseEntity<?> create(@RequestBody CreateProductionRequest aRequest);
-
     @GetMapping(
             value = "{id}",
             produces = MediaType.APPLICATION_JSON_VALUE

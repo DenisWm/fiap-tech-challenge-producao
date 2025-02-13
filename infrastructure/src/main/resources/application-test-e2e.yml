@@ -3,15 +3,15 @@ logging:
     root: info
 
 postgres:
-  username: root
-  password: 123456
-  schema: adm_videos
+  username: postgres
+  password: postgres
+  schema: producao
   url: localhost:${postgres.port}
 
 amqp:
   host: localhost
   port: 5672
-  username: adm_videos
+  username: adm_production
   password: 123456
 
 spring:

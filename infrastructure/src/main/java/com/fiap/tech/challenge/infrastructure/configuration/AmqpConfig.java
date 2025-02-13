@@ -1,5 +1,6 @@
 package com.fiap.tech.challenge.infrastructure.configuration;
 
+import com.fiap.tech.challenge.infrastructure.configuration.annotations.OrderPayedQueue;
 import com.fiap.tech.challenge.infrastructure.configuration.annotations.ProductionEvents;
 import com.fiap.tech.challenge.infrastructure.configuration.annotations.ProductionStatusChangedQueue;
 import com.fiap.tech.challenge.infrastructure.configuration.properties.amqp.QueueProperties;
@@ -18,6 +19,13 @@ public class AmqpConfig {
     @ConfigurationProperties("amqp.queues.production-status-changed")
     @ProductionStatusChangedQueue
     public QueueProperties productionInPreparationQueueProperties() {
+        return new QueueProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties("amqp.queues.order-payed")
+    @OrderPayedQueue
+    public QueueProperties orderPayedQueueProperties() {
         return new QueueProperties();
     }
 

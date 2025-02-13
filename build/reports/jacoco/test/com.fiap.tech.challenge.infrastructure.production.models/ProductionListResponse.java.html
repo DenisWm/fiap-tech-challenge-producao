@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductionListResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.models</a> &gt; <span class="el_source">ProductionListResponse.java</span></div><h1>ProductionListResponse.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.models;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductionListResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.models</a> &gt; <span class="el_source">ProductionListResponse.java</span></div><h1>ProductionListResponse.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fiap.tech.challenge.application.production.retrieve.list.ProductionListOutput;
 
-<span class="nc" id="L7">@JsonInclude(JsonInclude.Include.NON_NULL)</span>
-<span class="nc" id="L8">public record ProductionListResponse(</span>
+<span class="fc" id="L7">@JsonInclude(JsonInclude.Include.NON_NULL)</span>
+<span class="fc" id="L8">public record ProductionListResponse(</span>
         @JsonProperty(&quot;id&quot;) String id,
         @JsonProperty(&quot;order_id&quot;) String orderId,
         @JsonProperty(&quot;status&quot;) String status,
@@ -14,12 +14,12 @@ import com.fiap.tech.challenge.application.production.retrieve.list.ProductionLi
 ) {
 
     public static ProductionListResponse from(final ProductionListOutput output) {
-<span class="nc" id="L17">        return new ProductionListResponse(</span>
-<span class="nc" id="L18">                output.id(),</span>
-<span class="nc" id="L19">                output.orderId(),</span>
-<span class="nc" id="L20">                output.status().name(),</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">                output.receivedAt() != null ? output.receivedAt().toString() : null,</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">                output.startedAt() != null ? output.startedAt().toString() : null</span>
+<span class="fc" id="L17">        return new ProductionListResponse(</span>
+<span class="fc" id="L18">                output.id(),</span>
+<span class="fc" id="L19">                output.orderId(),</span>
+<span class="fc" id="L20">                output.status().name(),</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">                output.receivedAt() != null ? output.receivedAt().toString() : null,</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">                output.startedAt() != null ? output.startedAt().toString() : null</span>
         );
     }
 }

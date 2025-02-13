@@ -1,6 +1,7 @@
 package com.fiap.tech.challenge.application.production.update;
 
 import com.fiap.tech.challenge.application.production.UseCaseTest;
+import com.fiap.tech.challenge.domain.exceptions.NotificationException;
 import com.fiap.tech.challenge.domain.production.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -119,5 +120,95 @@ class UpdateProductionStatusUseCaseTest extends UseCaseTest {
         assertEquals(actualProduction.getStatus().name().toLowerCase(), actualEvent.getStatus());
         assertEquals(actualProduction.getStartedAt(), actualEvent.getStartedAt());
         assertEquals(actualProduction.getFinishedAt(), actualEvent.getFinishedAt());
+    }
+
+    @Test
+    void givenANullStatus_whenCallsUpdate_shouldReturnNotification() {
+        final String expectedStatus = null;
+        final var expectedNotificationMessage = "Could not update Aggregate Production";
+        final var expectedErrorMessage = "'status' must not be null";
+        final var expectedErrorCount = 1;
+
+        final var aProduction = Production.createProduction(UUID.randomUUID().toString(), List.of(Item.of(UUID.randomUUID().toString(), "productName", 2)));
+
+        final var expectedId = aProduction.getId();
+        final var aCmd = UpdateProductionStatusCommand.with(expectedId.getValue(), expectedStatus);
+
+        when(productionGateway.findById(eq(expectedId))).thenReturn(Optional.of(Production.with(aProduction)));
+
+        final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
+
+        assertNotNull(aResult);
+        assertEquals(expectedErrorCount, aResult.getErrors().size());
+        assertEquals(expectedErrorMessage, aResult.getErrors().get(0).message());
+        assertEquals(expectedNotificationMessage, aResult.getMessage());
+    }
+
+    @Test
+    void givenProductionWithStatusReceived_whenCallsUpdateWithAStatusReady_shouldReturnNotification() {
+        final ProductionStatus expectedStatus = ProductionStatus.READY;
+        final var expectedNotificationMessage = "Could not update Aggregate Production";
+        final var expectedErrorMessage = "Cannot transition from RECEIVED to READY";
+        final var expectedErrorCount = 1;
+
+        final var aProduction = Production.createProduction(UUID.randomUUID().toString(), List.of(Item.of(UUID.randomUUID().toString(), "productName", 2)));
+
+        final var expectedId = aProduction.getId();
+        final var aCmd = UpdateProductionStatusCommand.with(expectedId.getValue(), expectedStatus.name());
+
+        when(productionGateway.findById(eq(expectedId))).thenReturn(Optional.of(Production.with(aProduction)));
+
+        final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
+
+        assertNotNull(aResult);
+        assertEquals(expectedErrorCount, aResult.getErrors().size());
+        assertEquals(expectedErrorMessage, aResult.getErrors().get(0).message());
+        assertEquals(expectedNotificationMessage, aResult.getMessage());
+    }
+
+    @Test
+    void givenProductionWithStatusInPreparation_whenCallsUpdateWithAStatusReceived_shouldReturnNotification() {
+        final ProductionStatus expectedStatus = ProductionStatus.RECEIVED;
+        final var expectedNotificationMessage = "Could not update Aggregate Production";
+        final var expectedErrorMessage = "Cannot transition from IN_PREPARATION to RECEIVED";
+        final var expectedErrorCount = 1;
+
+        final var aProduction = Production.createProduction(UUID.randomUUID().toString(), List.of(Item.of(UUID.randomUUID().toString(), "productName", 2)));
+
+        aProduction.updateStatus(ProductionStatus.IN_PREPARATION);
+        final var expectedId = aProduction.getId();
+        final var aCmd = UpdateProductionStatusCommand.with(expectedId.getValue(), expectedStatus.name());
+
+        when(productionGateway.findById(eq(expectedId))).thenReturn(Optional.of(Production.with(aProduction)));
+
+        final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
+
+        assertNotNull(aResult);
+        assertEquals(expectedErrorCount, aResult.getErrors().size());
+        assertEquals(expectedErrorMessage, aResult.getErrors().get(0).message());
+        assertEquals(expectedNotificationMessage, aResult.getMessage());
+    }
+
+    @Test
+    void givenProductionWithStatusReady_whenCallsUpdateWithAStatusReceived_shouldReturnNotification() {
+        final ProductionStatus expectedStatus = ProductionStatus.IN_PREPARATION;
+        final var expectedNotificationMessage = "Could not update Aggregate Production";
+        final var expectedErrorMessage = "Cannot transition from READY to any other status";
+        final var expectedErrorCount = 1;
+
+        final var aProduction = Production.createProduction(UUID.randomUUID().toString(), List.of(Item.of(UUID.randomUUID().toString(), "productName", 2)));
+
+        aProduction.updateStatus(ProductionStatus.READY);
+        final var expectedId = aProduction.getId();
+        final var aCmd = UpdateProductionStatusCommand.with(expectedId.getValue(), expectedStatus.name());
+
+        when(productionGateway.findById(eq(expectedId))).thenReturn(Optional.of(Production.with(aProduction)));
+
+        final var aResult = assertThrows(NotificationException.class, () -> useCase.execute(aCmd));
+
+        assertNotNull(aResult);
+        assertEquals(expectedErrorCount, aResult.getErrors().size());
+        assertEquals(expectedErrorMessage, aResult.getErrors().get(0).message());
+        assertEquals(expectedNotificationMessage, aResult.getMessage());
     }
 }
