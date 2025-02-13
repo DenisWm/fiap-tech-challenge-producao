@@ -6,6 +6,10 @@ amqp:
       exchange: production.events
       routing-key: production.status-changed
       queue: production.status-changed.queue
+    order-payed:
+      exchange: order.events
+      routing-key: order.payed
+      queue: order.payed.queue
 
 server:
   port: 8080

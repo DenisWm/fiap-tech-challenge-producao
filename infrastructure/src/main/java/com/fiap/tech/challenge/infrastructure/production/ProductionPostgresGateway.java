@@ -6,6 +6,7 @@ import com.fiap.tech.challenge.domain.production.Production;
 import com.fiap.tech.challenge.domain.production.ProductionGateway;
 import com.fiap.tech.challenge.domain.production.ProductionID;
 import com.fiap.tech.challenge.domain.production.ProductionStatus;
+import com.fiap.tech.challenge.infrastructure.configuration.annotations.ProductionStatusChangedQueue;
 import com.fiap.tech.challenge.infrastructure.production.persistence.ProductionJpaEntity;
 import com.fiap.tech.challenge.infrastructure.production.persistence.ProductionRepository;
 import com.fiap.tech.challenge.infrastructure.services.EventService;
@@ -28,7 +29,7 @@ public class ProductionPostgresGateway implements ProductionGateway {
 
     public ProductionPostgresGateway(
             final ProductionRepository productionRepository,
-            final EventService eventService
+            @ProductionStatusChangedQueue final EventService eventService
     ) {
         this.productionRepository = Objects.requireNonNull(productionRepository);
         this.eventService = eventService;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Entity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.domain</a> &gt; <span class="el_source">Entity.java</span></div><h1>Entity.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.domain;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Entity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.domain</a> &gt; <span class="el_source">Entity.java</span></div><h1>Entity.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.domain;
 
 import com.fiap.tech.challenge.domain.events.DomainEvent;
 import com.fiap.tech.challenge.domain.events.DomainEventPublisher;
@@ -31,13 +31,13 @@ public abstract class Entity&lt;ID extends Identifier&gt; extends ValueObject{
     }
 
     public void publishDomainEvents(final DomainEventPublisher publisher) {
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if(publisher == null) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(publisher == null) {</span>
 <span class="nc" id="L35">            return;</span>
         }
-<span class="nc" id="L37">        getDomainEvents().forEach(publisher::publish);</span>
+<span class="fc" id="L37">        getDomainEvents().forEach(publisher::publish);</span>
 
-<span class="nc" id="L39">        this.domainEvents.clear();</span>
-<span class="nc" id="L40">    }</span>
+<span class="fc" id="L39">        this.domainEvents.clear();</span>
+<span class="fc" id="L40">    }</span>
 
     public void registerEvent(final DomainEvent event) {
 <span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if(event != null) {</span>

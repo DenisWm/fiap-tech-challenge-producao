@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemJpaObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.persistence</a> &gt; <span class="el_source">ItemJpaObject.java</span></div><h1>ItemJpaObject.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.persistence;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemJpaObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.infrastructure.production.persistence</a> &gt; <span class="el_source">ItemJpaObject.java</span></div><h1>ItemJpaObject.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.infrastructure.production.persistence;
 
 import com.fiap.tech.challenge.domain.production.Item;
 
@@ -21,26 +21,26 @@ public class ItemJpaObject {
             final String productId,
             final String productName,
             final int quantity
-<span class="nc" id="L24">    ) {</span>
-<span class="nc" id="L25">        this.productId = productId;</span>
-<span class="nc" id="L26">        this.productName = productName;</span>
-<span class="nc" id="L27">        this.quantity = quantity;</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L24">    ) {</span>
+<span class="fc" id="L25">        this.productId = productId;</span>
+<span class="fc" id="L26">        this.productName = productName;</span>
+<span class="fc" id="L27">        this.quantity = quantity;</span>
+<span class="fc" id="L28">    }</span>
 
-<span class="nc" id="L30">    public ItemJpaObject() {</span>
+<span class="fc" id="L30">    public ItemJpaObject() {</span>
 
-<span class="nc" id="L32">    }</span>
+<span class="fc" id="L32">    }</span>
 
     public static ItemJpaObject fromValueObject(final Item aItem) {
-<span class="nc" id="L35">        return new ItemJpaObject(</span>
-<span class="nc" id="L36">                aItem.productId(),</span>
-<span class="nc" id="L37">                aItem.productName(),</span>
-<span class="nc" id="L38">                aItem.quantity()</span>
+<span class="fc" id="L35">        return new ItemJpaObject(</span>
+<span class="fc" id="L36">                aItem.productId(),</span>
+<span class="fc" id="L37">                aItem.productName(),</span>
+<span class="fc" id="L38">                aItem.quantity()</span>
         );
     }
 
     public Item toValueObject() {
-<span class="nc" id="L43">        return Item.of(this.productId, this.productName, this.quantity);</span>
+<span class="fc" id="L43">        return Item.of(this.productId, this.productName, this.quantity);</span>
     }
 
     public String getProductId() {

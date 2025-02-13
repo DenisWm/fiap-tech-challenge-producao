@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultUpdateProductionStatusUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.application.production.update</a> &gt; <span class="el_source">DefaultUpdateProductionStatusUseCase.java</span></div><h1>DefaultUpdateProductionStatusUseCase.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.application.production.update;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultUpdateProductionStatusUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">com.fiap.tech.challenge.application.production.update</a> &gt; <span class="el_source">DefaultUpdateProductionStatusUseCase.java</span></div><h1>DefaultUpdateProductionStatusUseCase.java</h1><pre class="source lang-java linenums">package com.fiap.tech.challenge.application.production.update;
 
 import com.fiap.tech.challenge.domain.exceptions.NotFoundException;
 import com.fiap.tech.challenge.domain.exceptions.NotificationException;
@@ -31,8 +31,8 @@ public class DefaultUpdateProductionStatusUseCase extends UpdateProductionStatus
 
 <span class="fc" id="L32">        aProduction.updateStatus(status);</span>
 
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(notification.hasErrors()) {</span>
-<span class="nc" id="L35">            throw new NotificationException(&quot;Could not update Aggregate Production&quot;, notification);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if(notification.hasErrors()) {</span>
+<span class="fc" id="L35">            throw new NotificationException(&quot;Could not update Aggregate Production&quot;, notification);</span>
         }
 
 <span class="fc" id="L38">        return UpdateProductionStatusOutput.from(productionGateway.update(aProduction));</span>
@@ -40,27 +40,27 @@ public class DefaultUpdateProductionStatusUseCase extends UpdateProductionStatus
 
     private Notification validateProductionStatus(final Production aProduction, final ProductionStatus newStatus) {
 <span class="fc" id="L42">        final var notification = Notification.create();</span>
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (newStatus == null) {</span>
-<span class="nc" id="L44">            notification.append(new Error(&quot;'status' must not be null&quot;));</span>
-<span class="nc" id="L45">            return notification;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (newStatus == null) {</span>
+<span class="fc" id="L44">            notification.append(new Error(&quot;'status' must not be null&quot;));</span>
+<span class="fc" id="L45">            return notification;</span>
         } else {
-<span class="pc bpc" id="L47" title="2 of 4 branches missed.">            switch (aProduction.getStatus()) {</span>
+<span class="pc bpc" id="L47" title="1 of 4 branches missed.">            switch (aProduction.getStatus()) {</span>
                 case RECEIVED:
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">                    if (newStatus != ProductionStatus.IN_PREPARATION) {</span>
-<span class="nc" id="L50">                        notification.append(new Error(</span>
-<span class="nc" id="L51">                                &quot;Cannot transition from RECEIVED to &quot; + newStatus.name()));</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                    if (newStatus != ProductionStatus.IN_PREPARATION) {</span>
+<span class="fc" id="L50">                        notification.append(new Error(</span>
+<span class="fc" id="L51">                                &quot;Cannot transition from RECEIVED to &quot; + newStatus.name()));</span>
                     }
                     break;
 
                 case IN_PREPARATION:
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">                    if (newStatus != ProductionStatus.READY) {</span>
-<span class="nc" id="L57">                        notification.append(new Error(</span>
-<span class="nc" id="L58">                                &quot;Cannot transition from IN_PREPARATION to &quot; + newStatus.name()));</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                    if (newStatus != ProductionStatus.READY) {</span>
+<span class="fc" id="L57">                        notification.append(new Error(</span>
+<span class="fc" id="L58">                                &quot;Cannot transition from IN_PREPARATION to &quot; + newStatus.name()));</span>
                     }
                     break;
 
                 case READY:
-<span class="nc" id="L63">                    notification.append(new Error(</span>
+<span class="fc" id="L63">                    notification.append(new Error(</span>
                             &quot;Cannot transition from READY to any other status&quot;));
                     break;
             }
