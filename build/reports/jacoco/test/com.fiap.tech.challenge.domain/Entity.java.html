@@ -44,18 +44,5 @@ public abstract class Entity&lt;ID extends Identifier&gt; extends ValueObject{
 <span class="fc" id="L44">            this.domainEvents.add(event);</span>
         }
 <span class="fc" id="L46">    }</span>
-
-    @Override
-    public boolean equals(final Object o) {
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (this == o) return true;</span>
-<span class="nc bnc" id="L51" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
-<span class="nc" id="L52">        final Entity&lt;?&gt; entity = (Entity&lt;?&gt;) o;</span>
-<span class="nc" id="L53">        return Objects.equals(getId(), entity.getId());</span>
-    }
-
-    @Override
-    public int hashCode() {
-<span class="nc" id="L58">        return Objects.hash(getId());</span>
-    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

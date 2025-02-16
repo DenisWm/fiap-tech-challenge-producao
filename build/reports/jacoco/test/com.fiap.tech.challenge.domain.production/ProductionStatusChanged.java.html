@@ -56,27 +56,13 @@ public class ProductionStatusChanged implements DomainEvent {
 <span class="fc" id="L56">        return status;</span>
     }
 
-    public ProductionStatusChanged setStatus(String status) {
-<span class="nc" id="L60">        this.status = status;</span>
-<span class="nc" id="L61">        return this;</span>
-    }
-
     public Instant getStartedAt() {
-<span class="fc" id="L65">        return startedAt;</span>
-    }
-
-    public ProductionStatusChanged setStartedAt(Instant startedAt) {
-<span class="nc" id="L69">        this.startedAt = startedAt;</span>
-<span class="nc" id="L70">        return this;</span>
+<span class="fc" id="L60">        return startedAt;</span>
     }
 
     public Instant getFinishedAt() {
-<span class="fc" id="L74">        return finishedAt;</span>
+<span class="fc" id="L64">        return finishedAt;</span>
     }
 
-    public ProductionStatusChanged setFinishedAt(Instant finishedAt) {
-<span class="nc" id="L78">        this.finishedAt = finishedAt;</span>
-<span class="nc" id="L79">        return this;</span>
-    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -56,26 +56,12 @@ public class ProductionStatusChanged implements DomainEvent {
         return status;
     }
 
-    public ProductionStatusChanged setStatus(String status) {
-        this.status = status;
-        return this;
-    }
-
     public Instant getStartedAt() {
         return startedAt;
-    }
-
-    public ProductionStatusChanged setStartedAt(Instant startedAt) {
-        this.startedAt = startedAt;
-        return this;
     }
 
     public Instant getFinishedAt() {
         return finishedAt;
     }
 
-    public ProductionStatusChanged setFinishedAt(Instant finishedAt) {
-        this.finishedAt = finishedAt;
-        return this;
-    }
 }

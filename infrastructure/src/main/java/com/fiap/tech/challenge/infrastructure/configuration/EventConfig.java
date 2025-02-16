@@ -17,18 +17,18 @@ public class EventConfig {
 
     @Bean
     @ProductionStatusChangedQueue
+    @Profile({"development"})
+    public EventService localProductionStatusChangedService() {
+        return new InMemoryEventService();
+    }
+
+    @Bean
+    @ProductionStatusChangedQueue
     @ConditionalOnMissingBean
     public EventService productionStatusChangedService(
             @ProductionStatusChangedQueue final QueueProperties props,
             final RabbitOperations ops
     ) {
         return new RabbitEventService(props.getExchange(), props.getRoutingKey(), ops);
-    }
-
-    @Bean
-    @ProductionStatusChangedQueue
-    @Profile({"development"})
-    public EventService localVideoCreatedEventService() {
-        return new InMemoryEventService();
     }
 }
