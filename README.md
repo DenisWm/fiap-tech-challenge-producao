@@ -7,7 +7,7 @@
 
 **Banco de dados:** PostgreSQL e FlyWayDB
 
-# Microsserviço de Produção (Order)
+# Microsserviço de Produção (Production)
 
 Este projeto é um microsserviço de pedido desenvolvido em Java, utilizando Spring Boot. Ele inclui diversas funcionalidades, como integração com postgreSQL e FlyWayDB, e análise de qualidade com SonarQube.
 
