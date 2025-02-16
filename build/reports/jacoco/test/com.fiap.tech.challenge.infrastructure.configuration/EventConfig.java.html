@@ -17,19 +17,19 @@ import org.springframework.context.annotation.Profile;
 
     @Bean
     @ProductionStatusChangedQueue
+    @Profile({&quot;development&quot;})
+    public EventService localProductionStatusChangedService() {
+<span class="nc" id="L22">        return new InMemoryEventService();</span>
+    }
+
+    @Bean
+    @ProductionStatusChangedQueue
     @ConditionalOnMissingBean
     public EventService productionStatusChangedService(
             @ProductionStatusChangedQueue final QueueProperties props,
             final RabbitOperations ops
     ) {
-<span class="fc" id="L25">        return new RabbitEventService(props.getExchange(), props.getRoutingKey(), ops);</span>
-    }
-
-    @Bean
-    @ProductionStatusChangedQueue
-    @Profile({&quot;development&quot;})
-    public EventService localVideoCreatedEventService() {
-<span class="nc" id="L32">        return new InMemoryEventService();</span>
+<span class="fc" id="L32">        return new RabbitEventService(props.getExchange(), props.getRoutingKey(), ops);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

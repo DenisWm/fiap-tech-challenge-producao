@@ -48,10 +48,10 @@ class ProductionPostgresGatewayTest {
         assertEquals(aProduction.getStartedAt(), actualProduction.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualProduction.getFinishedAt());
 
-        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get();
+        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get().toAggregate();
 
         assertEquals(expectedOrderId, actualEntity.getOrderId());
-        assertTrue(expectedItems.containsAll(actualEntity.getItems().stream().map(ItemJpaObject::toValueObject).toList()));
+        assertTrue(expectedItems.containsAll(actualEntity.getItems()));
         assertEquals(aProduction.getStatus(), actualEntity.getStatus());
         assertEquals(aProduction.getStartedAt(), actualEntity.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualEntity.getFinishedAt());
@@ -80,10 +80,10 @@ class ProductionPostgresGatewayTest {
         assertEquals(aProduction.getStartedAt(), actualProduction.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualProduction.getFinishedAt());
 
-        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get();
+        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get().toAggregate();
 
         assertEquals(production.getOrderId(), actualEntity.getOrderId());
-        assertTrue(expectedItems.containsAll(actualEntity.getItems().stream().map(ItemJpaObject::toValueObject).toList()));
+        assertTrue(expectedItems.containsAll(actualEntity.getItems()));
         assertEquals(aProduction.getStatus(), actualEntity.getStatus());
         assertEquals(aProduction.getStartedAt(), actualEntity.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualEntity.getFinishedAt());
@@ -111,10 +111,10 @@ class ProductionPostgresGatewayTest {
         assertEquals(aProduction.getStartedAt(), actualProduction.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualProduction.getFinishedAt());
 
-        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get();
+        final var actualEntity = productionRepository.findById(actualProduction.getId().getValue()).get().toAggregate();
 
         assertEquals(production.getOrderId(), actualEntity.getOrderId());
-        assertTrue(expectedItems.containsAll(actualEntity.getItems().stream().map(ItemJpaObject::toValueObject).toList()));
+        assertTrue(expectedItems.containsAll(actualEntity.getItems()));
         assertEquals(aProduction.getStatus(), actualEntity.getStatus());
         assertEquals(aProduction.getStartedAt(), actualEntity.getStartedAt());
         assertEquals(aProduction.getFinishedAt(), actualEntity.getFinishedAt());
