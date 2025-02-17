@@ -15,7 +15,7 @@ import java.util.List;
 
     @Override
     public ValidationHandler append(ValidationHandler aHandler) {
-<span class="nc" id="L18">        throw DomainException.with(aHandler.getErrors());</span>
+<span class="fc" id="L18">        throw DomainException.with(aHandler.getErrors());</span>
 
     }
 
@@ -23,14 +23,14 @@ import java.util.List;
     public &lt;T&gt; T validate(final Validation&lt;T&gt; aValidation) {
         try {
 <span class="nc" id="L25">            return aValidation.validate();</span>
-<span class="nc" id="L26">        } catch (final Exception ex) {</span>
-<span class="nc" id="L27">            throw DomainException.with(new com.fiap.tech.challenge.domain.validation.Error(ex.getMessage()));</span>
+<span class="fc" id="L26">        } catch (final Exception ex) {</span>
+<span class="fc" id="L27">            throw DomainException.with(new com.fiap.tech.challenge.domain.validation.Error(ex.getMessage()));</span>
         }
     }
 
     @Override
     public List&lt;Error&gt; getErrors() {
-<span class="nc" id="L33">        return List.of();</span>
+<span class="fc" id="L33">        return List.of();</span>
     }
 }
 

@@ -13,7 +13,7 @@ public class DomainException extends NoStacktraceRuntimeException{
 <span class="fc" id="L13">        this.errors = anErrors;</span>
 <span class="fc" id="L14">    }</span>
     public static DomainException with(final List&lt;Error&gt; anErrors) {
-<span class="nc" id="L16">        return new DomainException(&quot;&quot;, anErrors);</span>
+<span class="fc" id="L16">        return new DomainException(&quot;&quot;, anErrors);</span>
     }
 
     public static DomainException with(final Error anError) {
