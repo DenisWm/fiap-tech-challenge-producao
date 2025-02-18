@@ -9,7 +9,7 @@
 
 # Microsserviço de Produção (Production)
 
-Este projeto é um microsserviço de pedido desenvolvido em Java, utilizando Spring Boot. Ele inclui diversas funcionalidades, como integração com postgreSQL e FlyWayDB, e análise de qualidade com SonarQube.
+Este projeto é um microsserviço de produção desenvolvido em Java, utilizando Spring Boot. Ele inclui diversas funcionalidades, como integração com postgreSQL e FlyWayDB, e análise de qualidade com SonarQube.
 
 ## Sumário
 
